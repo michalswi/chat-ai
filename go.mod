@@ -5,6 +5,7 @@ go 1.22.1
 require (
 	cloud.google.com/go/vertexai v0.12.0
 	github.com/michalswi/color v0.0.0-20240313114906-30322e31716c
+	github.com/sashabaranov/go-openai v1.27.1
 	google.golang.org/api v0.189.0
 )
 
