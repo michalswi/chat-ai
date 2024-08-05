@@ -41,13 +41,20 @@ func main() {
 	}
 }
 
+// runChatGPT handles the interaction loop with ChatGPT, processing user commands and displaying responses.
 func runChatGPT(apiKey string, reader *bufio.Reader, aiProvider string) {
 	openaiClient := openai.NewClient(apiKey)
 
 	for {
 		command, shouldContinue := prompt(reader, aiProvider)
+
 		if !shouldContinue {
 			break
+		}
+
+		if command == "h" && shouldContinue {
+			displayHelp()
+			continue
 		}
 
 		resp, err := chatGPTChat(openaiClient, command)
@@ -58,6 +65,7 @@ func runChatGPT(apiKey string, reader *bufio.Reader, aiProvider string) {
 	}
 }
 
+// runGemini handles the interaction loop with Gemini, processing user commands and displaying responses.
 func runGemini(apiKey string, reader *bufio.Reader, aiProvider string) {
 	ctx := context.Background()
 
@@ -78,8 +86,14 @@ func runGemini(apiKey string, reader *bufio.Reader, aiProvider string) {
 
 	for {
 		command, shouldContinue := prompt(reader, aiProvider)
+
 		if !shouldContinue {
 			break
+		}
+
+		if command == "h" && shouldContinue {
+			displayHelp()
+			continue
 		}
 
 		respGemini, err := geminiChat(ctx, client, command)
@@ -91,6 +105,7 @@ func runGemini(apiKey string, reader *bufio.Reader, aiProvider string) {
 	}
 }
 
+// prompt displays a prompt to the user, reads their input, and determines whether to continue the loop or handle special commands like "h" for help.
 func prompt(reader *bufio.Reader, aiProvider string) (string, bool) {
 	prompt := fmt.Sprintf("%s [%s:%s]: ", time.Now().UTC().Format(time.RFC1123), appName, aiProvider)
 	fmt.Printf(color.Format(color.YELLOW, prompt))
@@ -104,13 +119,23 @@ func prompt(reader *bufio.Reader, aiProvider string) (string, bool) {
 
 	switch command {
 	case "q":
-		fmt.Println(color.Format(color.YELLOW, "Exiting chat. bye!"))
+		fmt.Println(color.Format(color.GREEN, "Exiting chat. bye!"))
 		return "", false
+	case "h":
+		return "h", true
 	}
 
 	return command, true
 }
 
+// displayHelp prints out the available commands and their descriptions to the user.
+func displayHelp() {
+	fmt.Println(color.Format(color.GREEN, "Commands:"))
+	fmt.Println(color.Format(color.GREEN, "  q - quit: Exit the chat."))
+	fmt.Println(color.Format(color.GREEN, "  h - help: Display this help message."))
+}
+
+// geminiChat sends the user's command to the Gemini AI and returns the response.
 func geminiChat(ctx context.Context, client *genai.Client, command string) (resp *genai.GenerateContentResponse, err error) {
 	fmt.Println(color.Format(color.GREEN, "> Waiting for Gemini.."))
 
@@ -136,6 +161,7 @@ func geminiChat(ctx context.Context, client *genai.Client, command string) (resp
 	return resp, nil
 }
 
+// chatGPTChat sends the user's command to the ChatGPT AI and returns the response.
 func chatGPTChat(openaiClient *openai.Client, command string) (resp openai.ChatCompletionResponse, err error) {
 	fmt.Println(color.Format(color.GREEN, "> Waiting for ChatGPT.."))
 
