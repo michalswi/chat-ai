@@ -1,6 +1,13 @@
 # chat-ai
 
-Terminal based AI chat powered by ChatGPT and Gemini.
+![](https://img.shields.io/github/stars/michalswi/chat-ai)
+![](https://img.shields.io/github/issues/michalswi/chat-ai)
+![](https://img.shields.io/github/forks/michalswi/chat-ai)
+![](https://img.shields.io/github/last-commit/michalswi/chat-ai)
+![](https://img.shields.io/github/release/michalswi/chat-ai)
+
+
+**Terminal based AI chat powered by ChatGPT and Gemini.**
 
 Go app to transform text files into AI-powered reviews is [here](https://github.com/michalswi/file-go-openai) .
 
