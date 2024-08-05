@@ -1,5 +1,15 @@
 # chat-ai
 
+Terminal based AI chat powered by ChatGPT and Gemini.
+
+Go app to transform text files into AI-powered reviews is [here](https://github.com/michalswi/file-go-openai) .
+
+```
+$ ./chat-ai -h
+  -p string
+    	AI provider [chatgpt, gemini]
+```
+
 ### ChatGPT (OpenAI)
 
 ```
