@@ -16,7 +16,14 @@ import (
 	"google.golang.org/api/option"
 )
 
-const appName = "chat-ai"
+const (
+	appName = "chat-ai"
+	// https://pkg.go.dev/github.com/sashabaranov/go-openai#pkg-constants
+	openaiModel = openai.GPT4o
+	// openaiModel = openai.GPT4oMini
+	// openaiModel = openai.O1Preview
+	geminiModel = "gemini-1.5-pro"
+)
 
 func main() {
 
@@ -37,7 +44,7 @@ func main() {
 	case "gemini":
 		runGemini(apiKey, reader, aiProvider)
 	default:
-		log.Fatalf("Invalid AI provider: %s", aiProvider)
+		log.Fatalf("Invalid AI provider, select 'chatgpt' or 'gemini'.")
 	}
 }
 
@@ -140,7 +147,7 @@ func geminiChat(ctx context.Context, client *genai.Client, command string) (resp
 	fmt.Println(color.Format(color.GREEN, "> Waiting for Gemini.."))
 
 	// https://pkg.go.dev/cloud.google.com/go/vertexai/genai#Client.GenerativeModel
-	model := client.GenerativeModel("gemini-1.5-pro")
+	model := client.GenerativeModel(geminiModel)
 
 	const ChatTemperature float32 = 0.1
 	temperature := ChatTemperature
@@ -168,7 +175,7 @@ func chatGPTChat(openaiClient *openai.Client, command string) (resp openai.ChatC
 	resp, err = openaiClient.CreateChatCompletion(
 		context.Background(),
 		openai.ChatCompletionRequest{
-			Model: openai.GPT4oMini,
+			Model: openaiModel,
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role:    openai.ChatMessageRoleUser,
