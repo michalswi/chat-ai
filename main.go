@@ -19,24 +19,24 @@ import (
 const (
 	appName = "chat-ai"
 	// https://pkg.go.dev/github.com/sashabaranov/go-openai#pkg-constants
-	openaiModel = openai.GPT4o
-	// openaiModel = openai.GPT4oMini
+	openaiModel = openai.GPT4oMini
+	// openaiModel = openai.GPT4o
 	// openaiModel = openai.O1Preview
 	geminiModel = "gemini-1.5-pro"
 )
 
 func main() {
 
+	var aiProvider string
+	flag.StringVar(&aiProvider, "p", "", "AI provider [chatgpt, gemini]")
+	flag.Parse()
+
+	reader := bufio.NewReader(os.Stdin)
+
 	apiKey := os.Getenv("API_KEY")
 	if apiKey == "" {
 		log.Fatal("Please set the API_KEY env variable")
 	}
-
-	reader := bufio.NewReader(os.Stdin)
-
-	var aiProvider string
-	flag.StringVar(&aiProvider, "p", "", "AI provider [chatgpt, gemini]")
-	flag.Parse()
 
 	switch aiProvider {
 	case "chatgpt":
