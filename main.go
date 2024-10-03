@@ -19,7 +19,8 @@ import (
 const (
 	appName = "chat-ai"
 	// https://pkg.go.dev/github.com/sashabaranov/go-openai#pkg-constants
-	openaiModel = openai.GPT4oMini
+	openaiModel = openai.GPT4oMini20240718
+	// openaiModel = openai.GPT4oMini
 	// openaiModel = openai.GPT4o
 	// openaiModel = openai.O1Preview
 	geminiModel = "gemini-1.5-pro"
