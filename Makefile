@@ -1,7 +1,7 @@
-GOLANG_VERSION := 1.22.1
+GOLANG_VERSION := 1.23.2
 
 APP_NAME := chat-ai
-APP_VERSION := 0.1.0
+APP_VERSION := 0.1.1
 
 .DEFAULT_GOAL := help
 .PHONY: build_mac build_linux

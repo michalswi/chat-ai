@@ -1,6 +1,6 @@
 module github.com/michalswi/chat-ai
 
-go 1.22.1
+go 1.23.2
 
 require (
 	cloud.google.com/go/vertexai v0.12.0
